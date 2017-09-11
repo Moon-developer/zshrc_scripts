@@ -1,0 +1,53 @@
+
+/*
+ * Add this to your ~/.zshrc to create useful git commands and git alias
+*/
+
+BLACK='\033[0;30m'
+RED='\033[0;31;1m'
+REDBLINK='\033[0;31m'
+GREEN='\033[0;32;1m'
+BROWN='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+CYANTITLE='\033[0;36;1;4m'
+LIGHTGRAY='\033[0;37m'
+DARKGRAY='\033[1;30m'
+LIGHTRED='\033[1;31m'
+LIGHTGREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+LIGHTBLUE='\033[1;34m'
+LIGHTPURPLE='\033[1;35m'
+LIGHTCYAN='\033[1;36m'
+WHITE='\033[1;37m'
+
+gitall() {
+	clear
+	echo "${CYANTITLE}Are you sure you would like to add all?"
+	echo "${CYAN}PRESS: 1 for ${GREEN}YES${CYAN} AND 2 for ${RED}NO${WHITE}"
+	select yn in "yes" "no"; do
+		case $yn in
+			yes )
+				git add .
+				if [ -n "$1" ]
+				then
+					echo "git committing"
+					git commit --q -m "$*"
+					echo "git commited"
+				else
+					git commit --q -m "auto commit"
+				fi
+				git push -u --q origin HEAD
+				git status
+				break;;
+			no ) 
+				echo "${REDBLINK}aborting...\n";;
+		esac
+		break;
+		echo "${WHITE}"
+	done
+}
+
+alias new='open -a /Applications/Utilities/Terminal.app .'
+alias gst='git status'
