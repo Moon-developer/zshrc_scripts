@@ -1,8 +1,3 @@
-
-/*
- * Add this to your ~/.zshrc to create useful git commands and git alias
-*/
-
 BLACK='\033[0;30m'
 RED='\033[0;31;1m'
 REDBLINK='\033[0;31m'
@@ -48,6 +43,3 @@ gitall() {
 		echo "${WHITE}"
 	done
 }
-
-alias new='open -a /Applications/Utilities/Terminal.app .'
-alias gst='git status'
