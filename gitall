@@ -17,9 +17,28 @@ LIGHTPURPLE='\033[1;35m'
 LIGHTCYAN='\033[1;36m'
 WHITE='\033[1;37m'
 
+showLoading() {
+	loadingText=$1
+
+	echo -ne "${PURPLE}Pushing $loadingText\r "
+	while kill -0 $! &>/dev/null; do
+		echo -ne "\r\033[K"
+		echo -ne "${PURPLE}Pushing: ${WHITE}$loadingText .\r"
+		sleep 0.5
+		echo -ne "${PURPLE}Pushing: ${WHITE}$loadingText ..\r"
+		sleep 0.5
+		echo -ne "${PURPLE}Pushing: ${WHITE}$loadingText ...\r"
+		sleep 0.5
+		echo -ne "\r\033[K"
+		echo -ne "${PURPLE}Pushing: ${WHITE}$loadingText \r"
+		sleep 0.5
+	done
+	echo "${WHITE}"
+}
+
 push() {
-	echo "Auto commit all files?"
-	echo "Enter 1 for YES and 2 for NO"
+	echo "${CYAN}Auto commit all files?${WHITE}"
+	echo "Press: 1 for ${GREEN}YES${WHITE} and 2 for ${RED}NO${WHITE}"
 	select yn in "yes" "no"; do
 		case $yn in
 			yes ) auto=1; break;;
@@ -32,15 +51,13 @@ push() {
 		then
 			git add $i
 			git commit --q -m "auto commit"
-			echo "Pushing $i"
-			git push --q origin HEAD
+			(git push --q origin HEAD & showLoading "$i")
 		else
 			git add $i
-			echo "Please type commit message for $i and press enter"
+			echo "${PURPLE}Please type commit message for${GREEN} $i ${PURPLE}and press enter${WHITE}"
 			read commit
 			git commit --q -m ${commit}
-			echo "Pushing $i"
-			git push --q origin HEAD
+			(git push --q origin HEAD & showLoading "$i")
 		fi
 	done
 }
