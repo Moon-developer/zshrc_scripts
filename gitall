@@ -17,24 +17,50 @@ LIGHTPURPLE='\033[1;35m'
 LIGHTCYAN='\033[1;36m'
 WHITE='\033[1;37m'
 
+push() {
+	echo "Auto commit all files?"
+	echo "Enter 1 for YES and 2 for NO"
+	select yn in "yes" "no"; do
+		case $yn in
+			yes ) auto=1; break;;
+			no ) auto=0; break;;
+		esac
+	done
+	untracked=(`git ls-files --others --modified --exclude-standard`)
+	for i in ${untracked[@]} ; do
+		if [[ "$auto" == 1 ]]
+		then
+			git add $i
+			git commit --q -m "auto commit"
+			echo "Pushing $i"
+			git push --q origin HEAD
+		else
+			git add $i
+			echo "Please type commit message for $i and press enter"
+			read commit
+			git commit --q -m ${commit}
+			echo "Pushing $i"
+			git push --q origin HEAD
+		fi
+	done
+}
+
 gitall() {
 	clear
-	echo "${CYANTITLE}Are you sure you would like to add all?"
-	echo "${CYAN}PRESS: 1 for ${GREEN}YES${CYAN} AND 2 for ${RED}NO${WHITE}"
+	echo "\n${CYAN}Are you sure you want to push all files?${WHITE}"
+	echo "PRESS: 1 for ${GREEN}YES${WHITE} AND 2 for ${RED}NO${WHITE}\n"
 	select yn in "yes" "no"; do
 		case $yn in
 			yes )
-				git add .
-				if [ -n "$1" ]
+				push
+				result=(`git status -s`)
+				if [[ -z "$result" ]]
 				then
-					echo "git committing"
-					git commit --q -m "$*"
-					echo "git commited"
+					echo "----------------- ALL FILES ADDED! ------------------"
 				else
-					git commit --q -m "auto commit"
+					git status
+					echo "--------------- NOT ALL FILES PUSHED! ---------------"
 				fi
-				git push -u --q origin HEAD
-				git status
 				break;;
 			no ) 
 				echo "${REDBLINK}aborting...\n";;
