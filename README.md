@@ -41,4 +41,4 @@ run:
 ./setup_env.sh
 ```
 
-#### note: this was is setup to setup according to my preference
+#### note: this was setup to set settings according to my preference
