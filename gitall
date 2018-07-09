@@ -86,3 +86,4 @@ gitall() {
 		echo "${WHITE}"
 	done
 }
+
