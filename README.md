@@ -31,4 +31,3 @@ install
 cat vimrc >> ~/.vimrc
 ```
 
-#### note: only use the one flag at a time
