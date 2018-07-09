@@ -26,6 +26,7 @@ setup() {
 	(sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" & showLoading "Install oh-my-zsh")
 	(brew install --HEAD valgrind & showLoading "Installing valgrind")
 	(osascript ./dark_mode.scpt & showLoading "Changing theme to dark mode")
+	(osascript ./open_mouse.scpt & showLoading "Opening mouse settings")
 	echo "Settings setup completed"
 }
 
