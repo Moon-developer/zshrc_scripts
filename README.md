@@ -31,3 +31,14 @@ install
 cat vimrc >> ~/.vimrc
 ```
 
+## CUSTOM VIM SETTINGS
+
+one click setup solution for mac. Setup changes them to dark mode, installs brew fix, installs oh-my-zsh, add vimrc settings, 
+adds gitall command and installs valgrind
+
+run:
+```
+./setup_env.sh
+```
+
+#### note: this was is setup to setup according to my preference
