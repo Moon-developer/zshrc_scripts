@@ -7,11 +7,43 @@ let g:rehash256 = 1
 set background=dark
 highlight clear
 set t_Co=256
+
+autocmd FileType markdown setlocal spell
+
+
+"remember vim cursor position"
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+" tell it to use an undo file
 set undofile
-set undodir=~/.undo
+" set a directory to store the undo history
+" not that you need to set the undodir path to where you want and pre create
+" the vimundo dir with mkdir in the same path
+set undodir=~/.vimundo/
+
+" automatically puts typed words in newline when hitting colomn 80
+" set textwidth=80
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * :Vexplore
+augroup END
+
+au FileChangedShell * echo "Warning: File changed on disk"
+
+let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
+let g:clang_user_options='|| exit 0'
+let g:clang_complete_auto = 1
+let g:clang_complete_copen = 1
+let g:clang_debug = 1
+
+
 hi Cursor ctermfg=235 ctermbg=231 cterm=NONE guifg=#272822 guibg=#f8f8f0 gui=NONE
 hi Visual ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
 hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
