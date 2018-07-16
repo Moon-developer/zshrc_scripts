@@ -1,30 +1,34 @@
+" sets a colum highligh
 set cc=81
+" shows numbers on the side
 set number
+" highlights syntax
 syntax enable
+" enables mouse
 set mouse=a
+" uses a theme
 let g:molokai_original = 1
 let g:rehash256 = 1
 set background=dark
 highlight clear
 set t_Co=256
 
-autocmd FileType markdown setlocal spell
-
-
 "remember vim cursor position"
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-" tell it to use an undo file
+
+" create a file for vim to remember history all the time
+" NOTE= create the .vimundo directory and point undodir= to it
 set undofile
-" set a directory to store the undo history
-" not that you need to set the undodir path to where you want and pre create
-" the vimundo dir with mkdir in the same path
 set undodir=~/.vimundo/
 
 " automatically puts typed words in newline when hitting colomn 80
 " set textwidth=80
 
+" setup a nerdtree system to look like an idea to move between tabs of
+" directory and file
+" use ctrl+w twice to switch cursor between tabs and enter to select a file
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
@@ -34,16 +38,18 @@ augroup ProjectDrawer
   autocmd!
   autocmd VimEnter * :Vexplore
 augroup END
-
 au FileChangedShell * echo "Warning: File changed on disk"
 
+" setup auto complete
+" NOTE = you might need to change your library path to find libclang.dylib on
+" your pc
 let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
 let g:clang_user_options='|| exit 0'
 let g:clang_complete_auto = 1
 let g:clang_complete_copen = 1
 let g:clang_debug = 1
 
-
+" a bunch of settings to make vim look like sublime
 hi Cursor ctermfg=235 ctermbg=231 cterm=NONE guifg=#272822 guibg=#f8f8f0 gui=NONE
 hi Visual ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
 hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
