@@ -40,6 +40,10 @@ augroup ProjectDrawer
 augroup END
 au FileChangedShell * echo "Warning: File changed on disk"
 
+" added this script to close the folder window if it's the last window open
+" when a file is closed.
+autocmd bufenter * if (winnr("$") == 1 && &ft ==# "netrw") | q
+
 " setup auto complete
 " NOTE = you might need to change your library path to find libclang.dylib on
 " your pc
