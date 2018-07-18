@@ -35,6 +35,7 @@ setup() {
 	source ~/.zshrc
 	(osascript ./dark_mode.scpt & showLoading "Changing theme to dark mode")
 	(osascript ./open_mouse.scpt & showLoading "Opening mouse settings")
+	mkdir ~/.vimundo/
 	echo "Settings setup completed"
 }
 
