@@ -53,6 +53,9 @@ let g:clang_complete_auto = 1
 let g:clang_complete_copen = 1
 let g:clang_debug = 1
 
+" move cursor to next window (usually the file window and not the directory)
+autocmd VimEnter * wincmd w
+
 " a bunch of settings to make vim look like sublime
 hi Cursor ctermfg=235 ctermbg=231 cterm=NONE guifg=#272822 guibg=#f8f8f0 gui=NONE
 hi Visual ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
