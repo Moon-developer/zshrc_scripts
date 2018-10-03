@@ -41,4 +41,11 @@ run:
 ./setup_env.sh
 ```
 
+## Highlight swift syntax in vim
+
+To get swift recognized in vim run the following
+```
+./swift.sh
+```
+
 #### note: this was setup to set settings according to my preference
